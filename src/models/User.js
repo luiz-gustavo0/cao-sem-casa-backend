@@ -5,6 +5,11 @@ class User extends Model {
   static init(sequelize) {
     super.init(
       {
+        id: {
+          type: Sequelize.UUID,
+          defaultValue: Sequelize.UUIDV4,
+          primaryKey: true
+        },
         name: Sequelize.STRING,
         email: Sequelize.STRING,
         password: Sequelize.VIRTUAL,
@@ -14,7 +19,8 @@ class User extends Model {
         bairro: Sequelize.STRING,
         cidade: Sequelize.STRING,
         uf: Sequelize.STRING,
-        foto_url: Sequelize.STRING
+        foto_url: Sequelize.STRING,
+        is_admin: Sequelize.BOOLEAN
       },
       {
         sequelize
