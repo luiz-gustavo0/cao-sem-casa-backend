@@ -47,7 +47,8 @@ module.exports = {
       status: {
         type: Sequelize.ENUM,
         allowNull: false,
-        values: ['adotado', 'nao adotado']
+        values: ['adotado', 'nao adotado'],
+        defaultValue: 'nao adotado'
       },
       created_at: {
         type: Sequelize.DATE,
