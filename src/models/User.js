@@ -39,6 +39,13 @@ class User extends Model {
   async chekPassword(password) {
     return await bcrypt.compare(password, this.password_hash)
   }
+
+  static associate(models) {
+    this.hasMany(models.Adoption, {
+      foreignKey: 'user_id',
+      as: 'adoptions'
+    })
+  }
 }
 
 export default User
