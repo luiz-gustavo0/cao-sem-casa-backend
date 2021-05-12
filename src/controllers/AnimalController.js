@@ -50,7 +50,8 @@ class AnimalController {
           tipo: yup.string().required('Este campo é obrigatório'),
           vacinado: yup.string().required('Este campo é obrigatório'),
           vermifugado: yup.string().required('Este campo é obrigatório'),
-          castrado: yup.string().required('Este campo é obrigatório')
+          castrado: yup.string().required('Este campo é obrigatório'),
+          sexo: yup.string(1).required('Este campo é obrigatório')
         })
         .noUnknown()
 

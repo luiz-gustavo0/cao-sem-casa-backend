@@ -25,8 +25,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       tipo: {
-        allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       vacinado: {
         allowNull: false,
@@ -45,10 +45,14 @@ module.exports = {
         type: Sequelize.STRING
       },
       status: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue: 'nao adotado'
+      },
+      sexo: {
         type: Sequelize.ENUM,
         allowNull: false,
-        values: ['adotado', 'nao adotado'],
-        defaultValue: 'nao adotado'
+        values: ['F', 'M']
       },
       created_at: {
         type: Sequelize.DATE,

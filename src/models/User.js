@@ -20,7 +20,7 @@ class User extends Model {
         cidade: Sequelize.STRING,
         uf: Sequelize.STRING,
         foto_url: Sequelize.STRING,
-        is_admin: Sequelize.BOOLEAN
+        role: Sequelize.STRING
       },
       {
         sequelize
