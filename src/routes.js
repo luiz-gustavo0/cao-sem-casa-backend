@@ -29,6 +29,8 @@ routes.put('/pets/:id', AnimalController.update)
 routes.delete('/pets/:id', AnimalController.delete)
 
 routes.get('/adoption', AdoptionController.index)
+routes.get('/adoption/:id', AdoptionController.show)
 routes.post('/adoption', AdoptionController.create)
+routes.delete('/adoption/:id', AdoptionController.delete)
 
 export default routes

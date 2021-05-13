@@ -3,6 +3,12 @@ import Animal from '../models/Animal'
 
 class AdoptionController {
   async index(request, response) {
+    const { role } = request.userData
+
+    if (typeof role !== 'string' || role === 'user') {
+      return response.status(403).json({ message: 'Recurso não permitido.' })
+    }
+
     const { page = 1 } = request.query
 
     const adoptions = await Adoption.findAll({
@@ -22,6 +28,49 @@ class AdoptionController {
     })
 
     return response.json(adoptions)
+  }
+
+  async show(request, response) {
+    const adoptionId = request.params.id
+
+    try {
+      const { role } = request.userData
+
+      if (typeof role !== 'string' || role === 'user') {
+        return response.status(403).json({ message: 'Recurso não permitido.' })
+      }
+
+      const adoption = await Adoption.findByPk(adoptionId, {
+        attributes: ['id'],
+        include: [
+          {
+            association: 'user',
+            attributes: [
+              'name',
+              'email',
+              'foto_url',
+              'rua',
+              'bairro',
+              'numero',
+              'cidade',
+              'uf'
+            ]
+          },
+          {
+            association: 'animal',
+            attributes: ['name', 'foto_url']
+          }
+        ]
+      })
+
+      if (!adoption) {
+        return response.status(400).json({ error: 'Item não encontrado.' })
+      }
+
+      return response.json(adoption)
+    } catch (error) {
+      return response.status(403).json({ error: 'Recurso não permitido.' })
+    }
   }
 
   async create(request, response) {
@@ -46,6 +95,30 @@ class AdoptionController {
     } catch (err) {
       console.log('ERROR', err)
 
+      return response.status(403).json({ error: 'Recurso não permitido.' })
+    }
+  }
+
+  async delete(request, response) {
+    const adoptionId = request.params.id
+
+    try {
+      const { role } = request.userData
+
+      if (typeof role !== 'string' || role === 'user') {
+        return response.status(403).json({ message: 'Recurso não permitido.' })
+      }
+
+      const adoption = await Adoption.findByPk(adoptionId)
+
+      if (!adoption) {
+        return response.status(400).json({ error: 'Item não encontrado.' })
+      }
+
+      await adoption.destroy()
+
+      return response.json({ message: 'Excluído com sucesso' })
+    } catch (err) {
       return response.status(403).json({ error: 'Recurso não permitido.' })
     }
   }
