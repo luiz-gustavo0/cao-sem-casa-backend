@@ -1,4 +1,5 @@
 import * as yup from 'yup'
+import animalSchema from '../helpers/animalSchema'
 
 import Animal from '../models/Animal'
 
@@ -40,22 +41,7 @@ class AnimalController {
           .json({ error: 'O campo de imagem é obrigatório' })
       }
 
-      const schema = yup
-        .object()
-        .shape({
-          name: yup.string().required('Este campo é obrigatório'),
-          peso: yup.number().positive().required('Este campo é obrigatório'),
-          idade: yup.number().positive().required('Este campo é obrigatório'),
-          raca: yup.string().required('Este campo é obrigatório'),
-          tipo: yup.string().required('Este campo é obrigatório'),
-          vacinado: yup.string().required('Este campo é obrigatório'),
-          vermifugado: yup.string().required('Este campo é obrigatório'),
-          castrado: yup.string().required('Este campo é obrigatório'),
-          sexo: yup.string(1).required('Este campo é obrigatório')
-        })
-        .noUnknown()
-
-      const validFields = await schema.validate(request.body, {
+      const validFields = await animalSchema.validate(request.body, {
         abortEarly: false,
         stripUnknown: true
       })
@@ -78,11 +64,8 @@ class AnimalController {
     const schema = yup
       .object()
       .shape({
-        name: yup.string(),
         peso: yup.number().positive(),
         idade: yup.number().positive(),
-        raca: yup.string(),
-        tipo: yup.string(),
         vacinado: yup.string(),
         vermifugado: yup.string(),
         castrado: yup.string()

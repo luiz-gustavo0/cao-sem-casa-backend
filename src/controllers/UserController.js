@@ -1,4 +1,5 @@
 import * as yup from 'yup'
+import userSchema from '../helpers/userSchema'
 
 import User from '../models/User'
 
@@ -56,28 +57,8 @@ class UserController {
       return response.status(409).json({ error: 'Usuário já cadastrado.' })
     }
 
-    const schema = yup
-      .object()
-      .shape({
-        name: yup.string().required('Nome é obrgatório'),
-        email: yup
-          .string()
-          .email('Insira um email válido')
-          .required('Email é obrigatório'),
-        password: yup
-          .string()
-          .required('Senha é obrgatório')
-          .min(8, 'A senha deve conter no mínimo 8 caracteres'),
-        rua: yup.string().required(),
-        numero: yup.number().required(),
-        bairro: yup.string().required(),
-        cidade: yup.string().required(),
-        uf: yup.string(2).required()
-      })
-      .noUnknown()
-
     try {
-      const validFields = await schema.validate(request.body, {
+      const validFields = await userSchema.validate(request.body, {
         abortEarly: false,
         stripUnknown: true
       })
