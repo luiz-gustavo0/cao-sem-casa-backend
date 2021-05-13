@@ -3,12 +3,6 @@ import Animal from '../models/Animal'
 
 class AdoptionController {
   async index(request, response) {
-    const { role } = request.userData
-
-    if (typeof role !== 'string' || role === 'user') {
-      return response.status(403).json({ message: 'Recurso não permitido.' })
-    }
-
     const { page = 1 } = request.query
 
     const adoptions = await Adoption.findAll({
@@ -103,12 +97,6 @@ class AdoptionController {
     const adoptionId = request.params.id
 
     try {
-      const { role } = request.userData
-
-      if (typeof role !== 'string' || role === 'user') {
-        return response.status(403).json({ message: 'Recurso não permitido.' })
-      }
-
       const adoption = await Adoption.findByPk(adoptionId)
 
       if (!adoption) {

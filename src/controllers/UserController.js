@@ -4,13 +4,7 @@ import User from '../models/User'
 
 class UserController {
   async index(request, response) {
-    const { role } = request.userData
-
     try {
-      if (typeof role !== 'string' || role === 'user') {
-        return response.status(403).json({ message: 'Recurso não permitido.' })
-      }
-
       const { page = 1 } = request.query
 
       const users = await User.findAll({
@@ -117,11 +111,7 @@ class UserController {
       .noUnknown()
 
     try {
-      const { userId, role } = request.userData
-
-      if (typeof role !== 'string' || role === 'admin') {
-        return response.status(403).json({ message: 'Recurso não permitido.' })
-      }
+      const { userId } = request.userData
 
       const user = await User.findByPk(userId)
 
@@ -144,11 +134,7 @@ class UserController {
 
   async delete(request, response) {
     try {
-      const { userId, role } = request.userData
-
-      if (typeof role !== 'string' || role === 'admin') {
-        return response.status(403).json({ message: 'Recurso não permitido.' })
-      }
+      const { userId } = request.userData
 
       const user = await User.findByPk(userId)
 
