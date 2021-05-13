@@ -4,15 +4,25 @@ import User from '../models/User'
 
 class UserController {
   async index(request, response) {
-    const { page = 1 } = request.query
+    const { role } = request.userData
 
-    const users = await User.findAll({
-      attributes: ['id', 'name', 'email', 'foto_url'],
-      limit: 20,
-      offset: (page - 1) * 20
-    })
+    try {
+      if (typeof role !== 'string' || role === 'user') {
+        return response.status(403).json({ message: 'Recurso não permitido.' })
+      }
 
-    return response.json(users)
+      const { page = 1 } = request.query
+
+      const users = await User.findAll({
+        attributes: ['id', 'name', 'email', 'foto_url'],
+        limit: 20,
+        offset: (page - 1) * 20
+      })
+
+      return response.json(users)
+    } catch (err) {
+      return response.status(400).json(err)
+    }
   }
 
   async show(request, response) {
@@ -78,9 +88,12 @@ class UserController {
         stripUnknown: true
       })
 
-      const user = await User.create(validFields)
+      const { id, name, email, foto_url, rua, bairro, numero, cidade, uf } =
+        await User.create(validFields)
 
-      return response.status(201).json(user)
+      return response
+        .status(201)
+        .json({ id, name, email, foto_url, rua, bairro, numero, cidade, uf })
     } catch (err) {
       console.error('Error', err)
       return response.status(400).json(err)

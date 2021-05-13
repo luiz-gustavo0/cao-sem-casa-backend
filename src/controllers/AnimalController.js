@@ -32,8 +32,13 @@ class AnimalController {
 
   async create(request, response) {
     const file = request.file
+    const { role } = request.userData
 
     try {
+      if (typeof role !== 'string' || role === 'user') {
+        return response.status(403).json({ message: 'Recurso não permitido.' })
+      }
+
       if (!file) {
         return response
           .status(400)
@@ -75,6 +80,8 @@ class AnimalController {
     // const file = request.file
     const animalId = request.params.id
 
+    const { role } = request.userData
+
     const schema = yup
       .object()
       .shape({
@@ -89,6 +96,10 @@ class AnimalController {
       })
       .noUnknown()
     try {
+      if (typeof role !== 'string' || role === 'user') {
+        return response.status(403).json({ message: 'Recurso não permitido.' })
+      }
+
       const animal = await Animal.findByPk(animalId)
 
       if (!animal) {
@@ -111,8 +122,13 @@ class AnimalController {
 
   async delete(request, response) {
     const animalId = request.params.id
+    const { role } = request.userData
 
     try {
+      if (typeof role !== 'string' || role === 'user') {
+        return response.status(403).json({ message: 'Recurso não permitido.' })
+      }
+
       const animal = await Animal.findByPk(animalId)
 
       if (!animal) {
