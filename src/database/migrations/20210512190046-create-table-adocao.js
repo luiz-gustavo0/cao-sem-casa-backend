@@ -16,7 +16,7 @@ module.exports = {
           key: 'id'
         },
         onUpdated: 'CASCADE',
-        onDelete: 'SET NULL'
+        onDelete: 'CASCADE'
       },
       animal_id: {
         type: Sequelize.UUID,
@@ -26,7 +26,7 @@ module.exports = {
           key: 'id'
         },
         onUpdated: 'CASCADE',
-        onDelete: 'SET NULL'
+        onDelete: 'CASCADE'
       },
       created_at: {
         type: Sequelize.DATE,

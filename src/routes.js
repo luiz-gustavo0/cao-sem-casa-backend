@@ -23,6 +23,8 @@ routes.get('/pets/:id', AnimalController.show)
 routes.use(authMiddleware)
 routes.get('/users', UserController.index)
 routes.get('/users/:id', UserController.show)
+routes.put('/users/:id', UserController.update)
+routes.delete('/users/:id', UserController.delete)
 
 routes.post('/pets', upload.single('file'), AnimalController.create)
 routes.put('/pets/:id', AnimalController.update)

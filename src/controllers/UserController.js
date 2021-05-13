@@ -87,27 +87,69 @@ class UserController {
     }
   }
 
-  // async update(request, response) {
-  //   const schema = yup
-  //     .object()
-  //     .shape({
-  //       name: yup.string(),
-  //       password: yup
-  //         .string()
-  //         .min(8, 'A senha deve conter no mínimo 8 caracteres'),
-  //       rua: yup.string(),
-  //       numero: yup.number(),
-  //       bairro: yup.string(),
-  //       cidade: yup.string(),
-  //       uf: yup.string(2)
-  //     })
-  //     .noUnknown()
+  async update(request, response) {
+    const schema = yup
+      .object()
+      .shape({
+        name: yup.string(),
+        password: yup
+          .string()
+          .min(8, 'A senha deve conter no mínimo 8 caracteres'),
+        rua: yup.string(),
+        numero: yup.number(),
+        bairro: yup.string(),
+        cidade: yup.string(),
+        uf: yup.string(2)
+      })
+      .noUnknown()
 
-  //   try {
-  //   } catch (err) {
+    try {
+      const { userId, role } = request.userData
 
-  //   }
-  // }
+      if (typeof role !== 'string' || role === 'admin') {
+        return response.status(403).json({ message: 'Recurso não permitido.' })
+      }
+
+      const user = await User.findByPk(userId)
+
+      if (!user) {
+        return response.status(400).json({ error: 'Usuário não encontrado.' })
+      }
+
+      const validFields = await schema.validate(request.body, {
+        abortEarly: false,
+        stripUnknown: true
+      })
+
+      await user.update(validFields)
+
+      return response.json({ message: 'Dados atualizados com successo.' })
+    } catch (err) {
+      return response.status(400).json(err)
+    }
+  }
+
+  async delete(request, response) {
+    try {
+      const { userId, role } = request.userData
+
+      if (typeof role !== 'string' || role === 'admin') {
+        return response.status(403).json({ message: 'Recurso não permitido.' })
+      }
+
+      const user = await User.findByPk(userId)
+
+      if (!user || user.id !== userId) {
+        return response.status(400).json({ error: 'Usuário não encontrado.' })
+      }
+
+      await user.destroy()
+
+      return response.json({ message: 'Deletado com sucesso.' })
+    } catch (err) {
+      return response.status(400).json(err)
+    }
+  }
 }
 
 export default new UserController()
