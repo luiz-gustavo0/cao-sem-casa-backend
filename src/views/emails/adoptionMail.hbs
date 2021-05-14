@@ -1,0 +1,25 @@
+<style>
+
+  .body { display: flex; flex-direction: column; align-items: center;
+  justify-content: center; padding: 2rem; } label { font-size: 1rem;
+  margin-bottom: 20px; } h3 { margin-bottom: 20px; } .foto-animal { width: 100%;
+  max-width: 200px; height: 200px; } p { margin-bottom: 1rem; }
+
+</style>
+
+<div class='body'>
+  <label> Olá <strong>{{name}}</strong>! Tudo bem?</label>
+
+  <h3>{{title}}</h3>
+
+  <div class='foto-animal'>
+    <img src={{animaFoto}} alt='Foto de um cachorro' />
+  </div>
+
+  <p>Gostariamos de informar que sua solicitação para adoção, foi confirmada.</p>
+  <p>Agora você já pode vir buscar seu novo amigo.</p>
+  <p>Traga seus documentos para confirmamos a sua idenditade. Estamos por aqui
+    de 08:00 às 16:00</p>
+  <br />
+  <p>Atenciosamente, equipe <strong>Cão sem casa</strong></p>
+</div>

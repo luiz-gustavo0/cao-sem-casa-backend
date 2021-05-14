@@ -6,6 +6,7 @@ import multerConfig from './config/multer'
 import AdoptionController from './controllers/AdoptionController'
 import AnimalController from './controllers/AnimalController'
 import AuthController from './controllers/AuthController'
+import SendMailController from './controllers/SendMailController'
 import UserController from './controllers/UserController'
 
 import authMiddleware from './middlewares/authMiddleware'
@@ -40,5 +41,7 @@ routes.post('/adoption', AdoptionController.create)
 routes.get('/adoption', requireAdmin, AdoptionController.index)
 routes.get('/adoption/:id', requireAdmin, AdoptionController.show)
 routes.delete('/adoption/:id', requireAdmin, AdoptionController.delete)
+
+routes.get('/sendmail/:adoption_id', requireAdmin, SendMailController.send)
 
 export default routes
