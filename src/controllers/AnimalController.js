@@ -1,5 +1,6 @@
 import * as yup from 'yup'
 import animalSchema from '../helpers/animalSchema'
+import { AppError } from '../errors/AppError'
 
 import Animal from '../models/Animal'
 
@@ -23,11 +24,11 @@ class AnimalController {
     try {
       const animal = await Animal.findByPk(userId)
       if (!animal) {
-        return response.status(400).json({ error: 'Animal não encontrado.' })
+        throw new AppError(400, 'Animal não encontrado.')
       }
       return response.json(animal)
     } catch (err) {
-      return response.status(400).json(err)
+      throw new AppError(400, err)
     }
   }
 
@@ -36,9 +37,7 @@ class AnimalController {
 
     try {
       if (!file) {
-        return response
-          .status(400)
-          .json({ error: 'O campo de imagem é obrigatório' })
+        throw new AppError(400, 'O campo de imagem é obrigatório')
       }
 
       const validFields = await animalSchema.validate(request.body, {
@@ -53,7 +52,7 @@ class AnimalController {
 
       return response.status(201).json(animal)
     } catch (err) {
-      return response.status(400).json(err)
+      return response.status(400).json(err.errors)
     }
   }
 
@@ -64,6 +63,7 @@ class AnimalController {
     const schema = yup
       .object()
       .shape({
+        name: yup.string(),
         peso: yup.number().positive(),
         idade: yup.number().positive(),
         vacinado: yup.string(),
@@ -75,7 +75,7 @@ class AnimalController {
       const animal = await Animal.findByPk(animalId)
 
       if (!animal) {
-        return response.status(400).json({ error: 'Animal não encontrado.' })
+        throw new AppError(400, 'Animal não encontrado.')
       }
 
       const validFields = await schema.validate(request.body, {
@@ -88,7 +88,7 @@ class AnimalController {
       return response.status(200).json(newData)
     } catch (err) {
       console.log('ERROR', err)
-      return response.status(400).json(err)
+      return response.status(400).json(err.errors)
     }
   }
 
@@ -99,14 +99,14 @@ class AnimalController {
       const animal = await Animal.findByPk(animalId)
 
       if (!animal) {
-        return response.status(400).json({ error: 'Animal não encontrado.' })
+        throw new AppError(400, 'Animal não encontrado.')
       }
 
       await animal.destroy()
 
       return response.json({ message: 'Deletado com sucesso' })
     } catch (err) {
-      return response.status(400).json(err)
+      throw new AppError(400, err)
     }
   }
 }

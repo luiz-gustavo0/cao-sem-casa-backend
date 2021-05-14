@@ -1,3 +1,5 @@
+import { AppError } from '../errors/AppError'
+
 import Adoption from '../models/Adoption'
 import Animal from '../models/Animal'
 
@@ -31,7 +33,7 @@ class AdoptionController {
       const { role } = request.userData
 
       if (typeof role !== 'string' || role === 'user') {
-        return response.status(403).json({ message: 'Recurso não permitido.' })
+        throw new AppError(403, 'Recurso não permitido.')
       }
 
       const adoption = await Adoption.findByPk(adoptionId, {
@@ -58,12 +60,12 @@ class AdoptionController {
       })
 
       if (!adoption) {
-        return response.status(400).json({ error: 'Item não encontrado.' })
+        throw new AppError(400, 'Item não encontrado.')
       }
 
       return response.json(adoption)
     } catch (error) {
-      return response.status(403).json({ error: 'Recurso não permitido.' })
+      throw new AppError(403, 'Recurso não permitido.')
     }
   }
 
@@ -75,7 +77,7 @@ class AdoptionController {
 
       const animal = await Animal.findByPk(animalId)
       if (!animal) {
-        return response.status(400).json({ error: 'Animal não encontrado' })
+        throw new AppError(400, 'Animal não encontrado')
       }
 
       const adoption = await Adoption.create({
@@ -87,9 +89,7 @@ class AdoptionController {
 
       return response.status(201).json(adoption)
     } catch (err) {
-      console.log('ERROR', err)
-
-      return response.status(403).json({ error: 'Recurso não permitido.' })
+      throw new AppError(403, 'Recurso não permitido.')
     }
   }
 
@@ -100,14 +100,14 @@ class AdoptionController {
       const adoption = await Adoption.findByPk(adoptionId)
 
       if (!adoption) {
-        return response.status(400).json({ error: 'Item não encontrado.' })
+        throw new AppError(400, 'Item não encontrado')
       }
 
       await adoption.destroy()
 
       return response.json({ message: 'Excluído com sucesso' })
     } catch (err) {
-      return response.status(403).json({ error: 'Recurso não permitido.' })
+      throw new AppError(403, 'Recurso não permitido.')
     }
   }
 }

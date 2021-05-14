@@ -1,23 +1,20 @@
 import * as yup from 'yup'
+import { AppError } from '../errors/AppError'
 import userSchema from '../helpers/userSchema'
 
 import User from '../models/User'
 
 class UserController {
   async index(request, response) {
-    try {
-      const { page = 1 } = request.query
+    const { page = 1 } = request.query
 
-      const users = await User.findAll({
-        attributes: ['id', 'name', 'email', 'foto_url'],
-        limit: 20,
-        offset: (page - 1) * 20
-      })
+    const users = await User.findAll({
+      attributes: ['id', 'name', 'email', 'foto_url'],
+      limit: 20,
+      offset: (page - 1) * 20
+    })
 
-      return response.json(users)
-    } catch (err) {
-      return response.status(400).json(err)
-    }
+    return response.json(users)
   }
 
   async show(request, response) {
@@ -39,12 +36,12 @@ class UserController {
       })
 
       if (!user) {
-        return response.status(400).json({ message: 'Usuário não encontrado' })
+        throw new AppError(400, 'Usuário não cadastrado.')
       }
 
       return response.json(user)
     } catch (err) {
-      return response.status(401).json(err)
+      throw new AppError(400, err)
     }
   }
 
@@ -54,7 +51,7 @@ class UserController {
     })
 
     if (userExists) {
-      return response.status(409).json({ error: 'Usuário já cadastrado.' })
+      throw new AppError(409, 'Usuário já cadastrado.')
     }
 
     try {
@@ -70,8 +67,7 @@ class UserController {
         .status(201)
         .json({ id, name, email, foto_url, rua, bairro, numero, cidade, uf })
     } catch (err) {
-      console.error('Error', err)
-      return response.status(400).json(err)
+      return response.status(400).json({ errors: err.errors })
     }
   }
 
@@ -97,7 +93,7 @@ class UserController {
       const user = await User.findByPk(userId)
 
       if (!user) {
-        return response.status(400).json({ error: 'Usuário não encontrado.' })
+        throw new AppError(400, 'Usuário não encontrado.')
       }
 
       const validFields = await schema.validate(request.body, {
@@ -109,7 +105,7 @@ class UserController {
 
       return response.json({ message: 'Dados atualizados com successo.' })
     } catch (err) {
-      return response.status(400).json(err)
+      return response.status(400).json(err.errors)
     }
   }
 
@@ -120,14 +116,14 @@ class UserController {
       const user = await User.findByPk(userId)
 
       if (!user || user.id !== userId) {
-        return response.status(400).json({ error: 'Usuário não encontrado.' })
+        throw new AppError(400, 'Usuário não encontrado.')
       }
 
       await user.destroy()
 
       return response.json({ message: 'Deletado com sucesso.' })
     } catch (err) {
-      return response.status(400).json(err)
+      throw new AppError(400, err)
     }
   }
 }

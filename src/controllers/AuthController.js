@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken'
+
 import authConfig from '../config/auth'
+import { AppError } from '../errors/AppError'
 
 import User from '../models/User'
 
@@ -10,19 +12,18 @@ class AuthController {
     const user = await User.findOne({ where: { email } })
 
     if (!user) {
-      console.log('sem usuario', user)
-      return response.status(401).json({ error: 'Não autorizado' })
+      throw new AppError(401, 'Não autorizado')
     }
 
     if (!(await user.chekPassword(password))) {
-      return response.status(401).json({ error: 'Email ou senha inválidos' })
+      throw new AppError(401, 'Email ou senha inválidos')
     }
 
     const { id, name, role } = user
 
     return response.json({
       user: { id, name, email },
-      token: jwt.sign({ id, email, role }, authConfig.secret, {
+      token: jwt.sign({ id, role }, authConfig.secret, {
         expiresIn: authConfig.expiresIn
       })
     })
