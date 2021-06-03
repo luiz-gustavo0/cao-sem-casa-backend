@@ -1,23 +1,16 @@
 import nodemailer from 'nodemailer'
+import nodemailerSendgrid from 'nodemailer-sendgrid'
 import hbs from 'handlebars'
 
 import fs from 'fs'
 
 class SendMailService {
   constructor() {
-    this.transporter = nodemailer.createTransport({
-      service: process.env.MAIL_SERVICE,
-      host: process.env.MAIL_HOST,
-      port: process.env.MAIL_PORT,
-      secure: process.env.MAIL_SECURE,
-      auth: {
-        user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASS
-      },
-      tls: {
-        rejectUnauthorized: false
-      }
-    })
+    this.transporter = nodemailer.createTransport(
+      nodemailerSendgrid({
+        apiKey: process.env.SENDGRID_API_KEY
+      })
+    )
   }
 
   async execute(to, subject, variables, path) {
@@ -33,9 +26,7 @@ class SendMailService {
       from: process.env.MAIL_USER
     })
 
-    console.log('SENDMAIL SERVICE', message)
-
-    console.log('Mensgaem enviada: %s', message.messageId)
+    console.log('SENDMAIL SERVICE', JSON.stringify(message))
   }
 }
 

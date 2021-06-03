@@ -44,7 +44,6 @@ class SendMailController {
       title: 'Confirmação de Adoção',
       animalName: animal.name,
       animalFoto: animal.foto_url,
-      animalSexo: animal.sexo,
       id: adoption.id
     }
 
