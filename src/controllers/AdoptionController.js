@@ -30,27 +30,12 @@ class AdoptionController {
     const adoptionId = request.params.id
 
     try {
-      const { role } = request.userData
-
-      if (typeof role !== 'string' || role === 'user') {
-        throw new AppError(403, 'Recurso não permitido.')
-      }
-
       const adoption = await Adoption.findByPk(adoptionId, {
         attributes: ['id'],
         include: [
           {
             association: 'user',
-            attributes: [
-              'name',
-              'email',
-              'foto_url',
-              'rua',
-              'bairro',
-              'numero',
-              'cidade',
-              'uf'
-            ]
+            attributes: ['name', 'email', 'foto_url', 'cidade', 'uf']
           },
           {
             association: 'animal',
@@ -85,9 +70,33 @@ class AdoptionController {
         animal_id: animal.id
       })
 
+      return response.status(201).json(adoption)
+    } catch (err) {
+      throw new AppError(403, 'Recurso não permitido.')
+    }
+  }
+
+  async update(request, response) {
+    const adoptionId = request.params.id
+
+    try {
+      const adoption = await Adoption.findByPk(adoptionId)
+
+      if (!adoption) {
+        throw new AppError(400, 'Item não encontrado')
+      }
+
+      const { animal_id } = adoption
+
+      const animal = await Animal.findByPk(animal_id)
+
+      if (!animal) {
+        throw new AppError(400, 'Animal não encontrado')
+      }
+
       await animal.update({ status: 'adotado' })
 
-      return response.status(201).json(adoption)
+      return response.json({ message: 'Adoção confirmada.' })
     } catch (err) {
       throw new AppError(403, 'Recurso não permitido.')
     }
