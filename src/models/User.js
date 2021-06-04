@@ -19,7 +19,8 @@ class User extends Model {
         bairro: Sequelize.STRING,
         cidade: Sequelize.STRING,
         uf: Sequelize.STRING,
-        foto_url: Sequelize.STRING,
+        password_reset_token: Sequelize.STRING,
+        password_expires_token: Sequelize.STRING,
         role: Sequelize.STRING
       },
       {

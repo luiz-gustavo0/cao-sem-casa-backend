@@ -41,14 +41,16 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      foto_url: {
-        allowNull: true,
-        type: Sequelize.STRING
-      },
       role: {
         type: Sequelize.STRING,
         allowNull: false,
         defaultValue: 'user'
+      },
+      password_reset_token: {
+        type: Sequelize.STRING
+      },
+      password_expires_token: {
+        type: Sequelize.DATE
       },
       created_at: {
         type: Sequelize.DATE,

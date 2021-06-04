@@ -9,7 +9,7 @@ class UserController {
     const { page = 1 } = request.query
 
     const users = await User.findAll({
-      attributes: ['id', 'name', 'email', 'foto_url'],
+      attributes: ['id', 'name', 'email'],
       limit: 20,
       offset: (page - 1) * 20
     })
@@ -26,7 +26,6 @@ class UserController {
           'id',
           'name',
           'email',
-          'foto_url',
           'cidade',
           'uf',
           'rua',

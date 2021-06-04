@@ -15,7 +15,9 @@ import requireAdmin from './middlewares/requireAdmin'
 const routes = Router()
 const upload = multer(multerConfig)
 
-routes.post('/auth', AuthController.create)
+routes.post('/auth', AuthController.store)
+routes.post('/forgot_password', AuthController.create)
+routes.post('/reset_password', AuthController.update)
 
 routes.post('/users', UserController.create)
 
