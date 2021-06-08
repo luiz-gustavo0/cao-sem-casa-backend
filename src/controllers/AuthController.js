@@ -15,7 +15,7 @@ class AuthController {
     const user = await User.findOne({ where: { email } })
 
     if (!user) {
-      throw new AppError(401, 'Não autorizado')
+      throw new AppError(400, 'Email ou senha inválidos.')
     }
 
     if (!(await user.chekPassword(password))) {
@@ -122,7 +122,7 @@ class AuthController {
 
       await user.save(user.id)
 
-      return response.json('Senha alterada com sucesso')
+      return response.json({ message: 'Senha alterada com sucesso' })
     } catch (err) {
       throw new AppError(400, err)
     }
