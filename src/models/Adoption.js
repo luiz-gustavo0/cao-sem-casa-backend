@@ -1,4 +1,6 @@
-import Sequelize, { Model } from 'sequelize'
+import Sequelize from 'sequelize'
+
+const { Model } = Sequelize
 
 class Adoption extends Model {
   static init(sequelize) {

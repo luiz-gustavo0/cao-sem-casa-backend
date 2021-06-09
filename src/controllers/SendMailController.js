@@ -1,10 +1,10 @@
 import { resolve } from 'path'
 
-import SendMailService from '../services/SendMailService'
+import SendMailService from '../services/SendMailService.js'
 
-import Adoption from '../models/Adoption'
-import Animal from '../models/Animal'
-import User from '../models/User'
+import Adoption from '../models/Adoption.js'
+import Animal from '../models/Animal.js'
+import User from '../models/User.js'
 
 class SendMailController {
   async send(request, response) {

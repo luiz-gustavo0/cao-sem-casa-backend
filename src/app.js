@@ -6,11 +6,11 @@ import cors from 'cors'
 import helmet from 'helmet'
 
 // import { AppError } from './errors/AppError'
-import './database'
+import './database/index.js'
 
-import routes from './routes'
-import errorHandler from './errors/handler'
-import { AppError } from './errors/AppError'
+import routes from './routes.js'
+import errorHandler from './errors/handler.js'
+import { AppError } from './errors/AppError.js'
 
 const app = express()
 

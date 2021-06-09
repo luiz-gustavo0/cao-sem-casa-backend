@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "start": "node src/server.js",
     "dev": "nodemon src/server.js --watch src"
   },
   "devDependencies": {
@@ -33,5 +34,6 @@
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.6.2",
     "yup": "^0.32.9"
-  }
+  },
+  "type": "module"
 }

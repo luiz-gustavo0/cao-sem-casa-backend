@@ -1,7 +1,7 @@
-import { AppError } from '../errors/AppError'
+import { AppError } from '../errors/AppError.js'
 
-import Adoption from '../models/Adoption'
-import Animal from '../models/Animal'
+import Adoption from '../models/Adoption.js'
+import Animal from '../models/Animal.js'
 
 class AdoptionController {
   async index(request, response) {

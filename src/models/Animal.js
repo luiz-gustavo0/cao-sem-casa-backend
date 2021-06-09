@@ -1,4 +1,6 @@
-import Sequelize, { Model } from 'sequelize'
+import Sequelize from 'sequelize'
+
+const { Model } = Sequelize
 
 class Animal extends Model {
   static init(sequelize) {

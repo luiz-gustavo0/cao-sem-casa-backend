@@ -1,8 +1,8 @@
 import * as yup from 'yup'
-import animalSchema from '../helpers/animalSchema'
-import { AppError } from '../errors/AppError'
+import animalSchema from '../helpers/animalSchema.js'
+import { AppError } from '../errors/AppError.js'
 
-import Animal from '../models/Animal'
+import Animal from '../models/Animal.js'
 
 class AnimalController {
   async index(request, response) {

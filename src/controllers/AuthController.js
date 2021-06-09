@@ -2,11 +2,11 @@ import crypto from 'crypto'
 import jwt from 'jsonwebtoken'
 import { resolve } from 'path'
 
-import authConfig from '../config/auth'
-import SendMailService from '../services/SendMailService'
-import { AppError } from '../errors/AppError'
+import authConfig from '../config/auth.js'
+import SendMailService from '../services/SendMailService.js'
+import { AppError } from '../errors/AppError.js'
 
-import User from '../models/User'
+import User from '../models/User.js'
 
 class AuthController {
   async store(request, response) {
