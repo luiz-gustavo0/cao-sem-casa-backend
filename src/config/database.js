@@ -17,7 +17,11 @@ module.exports = {
   },
 
   production: {
-    stringConnection: process.env.DATABASE_URL,
+    host: process.env.DB_PROD_HOST,
+    port: process.env.DB_PROD_PORT,
+    username: process.env.DB_PROD_USERNAME,
+    password: process.env.DB_PROD_PASSWORD,
+    database: process.env.DB_PROD_DATABASE,
     dialect: 'postgres',
     dialectOptions: {
       ssl: {
