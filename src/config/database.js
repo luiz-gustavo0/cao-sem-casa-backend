@@ -21,9 +21,11 @@ module.exports = {
     dialect: 'postgres',
     dialectOptions: {
       ssl: {
+        require: true,
         rejectUnauthorized: false
       }
     },
+    ssl: true,
     define: {
       timestamps: true,
       underscored: true,

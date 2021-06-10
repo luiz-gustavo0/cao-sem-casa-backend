@@ -19,7 +19,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(helmet())
 app.use(cors())
-app.use(morgan('dev'))
+app.use(morgan('common'))
 
 app.use(routes)
 
