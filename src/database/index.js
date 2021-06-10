@@ -13,7 +13,10 @@ class Database {
   }
 
   init() {
-    this.connection = new Sequelize(databaseConfig)
+    this.connection =
+      process.env.NODE_ENV === 'production'
+        ? new Sequelize(databaseConfig.production)
+        : new Sequelize(databaseConfig.development)
     models
       .map((model) => model.init(this.connection))
       .map(
