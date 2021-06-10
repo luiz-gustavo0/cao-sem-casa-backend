@@ -13,7 +13,11 @@ class Database {
   }
 
   init() {
-    this.connection = new Sequelize(databaseConfig)
+    if (process.env.NODE_ENV === 'production') {
+      this.connection = new Sequelize(databaseConfig.production)
+    } else {
+      this.connection = new Sequelize(databaseConfig.development)
+    }
     models
       .map((model) => model.init(this.connection))
       .map(
