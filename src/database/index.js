@@ -1,8 +1,5 @@
-const path = require('path')
 const Sequelize = require('sequelize')
-const env = process.env.NODE_ENV || 'development'
-// const config = require('../config/database.js')[env]
-const config = path.resolve(__dirname, '..', 'config', 'database.js')[env]
+const databaseConfig = require('../config/database.js')
 
 const Adoption = require('../models/Adoption.js')
 const Animal = require('../models/Animal.js')
@@ -16,18 +13,10 @@ class Database {
   }
 
   init() {
-    if (config.use_env_variable) {
-      this.connection = new Sequelize(
-        process.env[config.use_env_variable],
-        config
-      )
+    if (process.env.NODE_ENV === 'production') {
+      this.connection = new Sequelize(databaseConfig.production)
     } else {
-      this.connection = new Sequelize(
-        config.database,
-        config.username,
-        config.password,
-        config
-      )
+      this.connection = new Sequelize(databaseConfig.development)
     }
     models
       .map((model) => model.init(this.connection))
