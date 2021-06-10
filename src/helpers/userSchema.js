@@ -1,4 +1,4 @@
-import * as yup from 'yup'
+const yup = require('yup')
 
 const userSchema = yup
   .object()
@@ -19,5 +19,4 @@ const userSchema = yup
     uf: yup.string(2).required()
   })
   .noUnknown()
-
-export default userSchema
+module.exports = userSchema

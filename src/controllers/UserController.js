@@ -1,8 +1,8 @@
-import * as yup from 'yup'
-import { AppError } from '../errors/AppError.js'
-import userSchema from '../helpers/userSchema.js'
+const yup = require('yup')
+const AppError = require('../errors/AppError.js')
+const userSchema = require('../helpers/userSchema.js')
 
-import User from '../models/User.js'
+const User = require('../models/User.js')
 
 class UserController {
   async index(request, response) {
@@ -127,4 +127,4 @@ class UserController {
   }
 }
 
-export default new UserController()
+module.exports = new UserController()

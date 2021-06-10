@@ -1,4 +1,6 @@
-import { ValidationError } from 'yup'
+const yup = require('yup')
+
+const { ValidationError } = yup
 
 const errorHandler = (error, request, response, next) => {
   if (error instanceof ValidationError) {
@@ -15,4 +17,4 @@ const errorHandler = (error, request, response, next) => {
   next(error)
 }
 
-export default errorHandler
+module.exports = errorHandler

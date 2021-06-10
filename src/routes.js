@@ -1,16 +1,16 @@
-import { Router } from 'express'
-import multer from 'multer'
+const { Router } = require('express')
+const multer = require('multer')
 
-import multerConfig from './config/multer.js'
+const multerConfig = require('./config/multer.js')
 
-import AdoptionController from './controllers/AdoptionController.js'
-import AnimalController from './controllers/AnimalController.js'
-import AuthController from './controllers/AuthController.js'
-import SendMailController from './controllers/SendMailController.js'
-import UserController from './controllers/UserController.js'
+const AdoptionController = require('./controllers/AdoptionController.js')
+const AnimalController = require('./controllers/AnimalController.js')
+const AuthController = require('./controllers/AuthController.js')
+const SendMailController = require('./controllers/SendMailController.js')
+const UserController = require('./controllers/UserController.js')
 
-import authMiddleware from './middlewares/authMiddleware.js'
-import requireAdmin from './middlewares/requireAdmin.js'
+const authMiddleware = require('./middlewares/authMiddleware.js')
+const requireAdmin = require('./middlewares/requireAdmin.js')
 
 const routes = Router()
 const upload = multer(multerConfig)
@@ -46,4 +46,4 @@ routes.delete('/adoption/:id', requireAdmin, AdoptionController.delete)
 
 routes.get('/sendmail/:adoption_id', requireAdmin, SendMailController.send)
 
-export default routes
+module.exports = routes

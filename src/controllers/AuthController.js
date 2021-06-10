@@ -1,12 +1,12 @@
-import crypto from 'crypto'
-import jwt from 'jsonwebtoken'
-import { resolve } from 'path'
+const crypto = require('crypto')
+const jwt = require('jsonwebtoken')
+const { resolve } = require('path')
 
-import authConfig from '../config/auth.js'
-import SendMailService from '../services/SendMailService.js'
-import { AppError } from '../errors/AppError.js'
+const authConfig = require('../config/auth.js')
+const SendMailService = require('../services/SendMailService.js')
+const AppError = require('../errors/AppError.js')
 
-import User from '../models/User.js'
+const User = require('../models/User.js')
 
 class AuthController {
   async store(request, response) {
@@ -129,4 +129,4 @@ class AuthController {
   }
 }
 
-export default new AuthController()
+module.exports = new AuthController()

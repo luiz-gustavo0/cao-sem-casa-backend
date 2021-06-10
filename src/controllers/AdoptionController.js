@@ -1,7 +1,7 @@
-import { AppError } from '../errors/AppError.js'
+const AppError = require('../errors/AppError.js')
 
-import Adoption from '../models/Adoption.js'
-import Animal from '../models/Animal.js'
+const Adoption = require('../models/Adoption.js')
+const Animal = require('../models/Animal.js')
 
 class AdoptionController {
   async index(request, response) {
@@ -121,4 +121,4 @@ class AdoptionController {
   }
 }
 
-export default new AdoptionController()
+module.exports = new AdoptionController()

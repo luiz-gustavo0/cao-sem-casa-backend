@@ -1,4 +1,4 @@
-import * as yup from 'yup'
+const yup = require('yup')
 
 const animalSchema = yup
   .object()
@@ -15,4 +15,4 @@ const animalSchema = yup
   })
   .noUnknown()
 
-export default animalSchema
+module.exports = animalSchema

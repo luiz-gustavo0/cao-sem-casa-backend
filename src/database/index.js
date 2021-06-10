@@ -1,9 +1,9 @@
-import Sequelize from 'sequelize'
-import databaseConfig from '../config/database.js'
+const Sequelize = require('sequelize')
+const databaseConfig = require('../config/database.js')
 
-import Adoption from '../models/Adoption.js'
-import Animal from '../models/Animal.js'
-import User from '../models/User.js'
+const Adoption = require('../models/Adoption.js')
+const Animal = require('../models/Animal.js')
+const User = require('../models/User.js')
 
 const models = [User, Animal, Adoption]
 
@@ -22,4 +22,4 @@ class Database {
   }
 }
 
-export default new Database()
+module.exports = new Database()

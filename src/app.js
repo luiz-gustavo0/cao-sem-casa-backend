@@ -1,16 +1,17 @@
-import 'dotenv/config'
-import express from 'express'
-import 'express-async-errors'
-import morgan from 'morgan'
-import cors from 'cors'
-import helmet from 'helmet'
+const dotenv = require('dotenv')
+const express = require('express')
+require('express-async-errors')
+const morgan = require('morgan')
+const cors = require('cors')
+const helmet = require('helmet')
 
-// import { AppError } from './errors/AppError'
-import './database/index.js'
+dotenv.config()
 
-import routes from './routes.js'
-import errorHandler from './errors/handler.js'
-import { AppError } from './errors/AppError.js'
+require('./database/index.js')
+
+const routes = require('./routes.js')
+const errorHandler = require('./errors/handler.js')
+const AppError = require('./errors/AppError.js')
 
 const app = express()
 
@@ -42,4 +43,4 @@ app.use((error, request, response, next) => {
   })
 })
 
-export default app
+module.exports = app

@@ -1,4 +1,4 @@
-import Sequelize from 'sequelize'
+const Sequelize = require('sequelize')
 
 const { Model } = Sequelize
 
@@ -26,4 +26,4 @@ class Adoption extends Model {
   }
 }
 
-export default Adoption
+module.exports = Adoption

@@ -1,10 +1,10 @@
-import { resolve } from 'path'
+const { resolve } = require('path')
 
-import SendMailService from '../services/SendMailService.js'
+const SendMailService = require('../services/SendMailService.js')
 
-import Adoption from '../models/Adoption.js'
-import Animal from '../models/Animal.js'
-import User from '../models/User.js'
+const Adoption = require('../models/Adoption.js')
+const Animal = require('../models/Animal.js')
+const User = require('../models/User.js')
 
 class SendMailController {
   async send(request, response) {
@@ -53,4 +53,4 @@ class SendMailController {
   }
 }
 
-export default new SendMailController()
+module.exports = new SendMailController()

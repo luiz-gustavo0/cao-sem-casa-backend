@@ -1,4 +1,4 @@
-import Sequelize from 'sequelize'
+const Sequelize = require('sequelize')
 
 const { Model } = Sequelize
 
@@ -35,4 +35,4 @@ class Animal extends Model {
   }
 }
 
-export default Animal
+module.exports = Animal

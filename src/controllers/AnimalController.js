@@ -1,8 +1,8 @@
-import * as yup from 'yup'
-import animalSchema from '../helpers/animalSchema.js'
-import { AppError } from '../errors/AppError.js'
+const yup = require('yup')
+const animalSchema = require('../helpers/animalSchema.js')
+const AppError = require('../errors/AppError.js')
 
-import Animal from '../models/Animal.js'
+const Animal = require('../models/Animal.js')
 
 class AnimalController {
   async index(request, response) {
@@ -111,4 +111,4 @@ class AnimalController {
   }
 }
 
-export default new AnimalController()
+module.exports = new AnimalController()

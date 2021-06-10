@@ -1,8 +1,8 @@
-import nodemailer from 'nodemailer'
-import nodemailerSendgrid from 'nodemailer-sendgrid'
-import hbs from 'handlebars'
+const nodemailer = require('nodemailer')
+const nodemailerSendgrid = require('nodemailer-sendgrid')
+const hbs = require('handlebars')
 
-import fs from 'fs'
+const fs = require('fs')
 
 class SendMailService {
   constructor() {
@@ -30,4 +30,4 @@ class SendMailService {
   }
 }
 
-export default new SendMailService()
+module.exports = new SendMailService()
