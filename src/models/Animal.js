@@ -20,6 +20,7 @@ class Animal extends Model {
         vermifugado: Sequelize.STRING,
         castrado: Sequelize.STRING,
         foto_url: Sequelize.STRING,
+        description: Sequelize.STRING,
         status: Sequelize.STRING,
         sexo: {
           type: Sequelize.ENUM,

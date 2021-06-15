@@ -59,12 +59,12 @@ class UserController {
         stripUnknown: true
       })
 
-      const { id, name, email, foto_url, rua, bairro, numero, cidade, uf } =
+      const { id, name, email, rua, bairro, numero, cidade, uf } =
         await User.create(validFields)
 
       return response
         .status(201)
-        .json({ id, name, email, foto_url, rua, bairro, numero, cidade, uf })
+        .json({ id, name, email, rua, bairro, numero, cidade, uf })
     } catch (err) {
       return response.status(400).json({ errors: err.errors })
     }

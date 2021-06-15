@@ -12,8 +12,8 @@ class AnimalController {
       where: {
         status: 'nao adotado'
       },
-      limit: 10,
-      offset: (page - 1) * 10
+      limit: 12,
+      offset: (page - 1) * 12
     })
 
     return response.json(animals)
