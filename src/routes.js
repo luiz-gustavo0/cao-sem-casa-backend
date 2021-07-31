@@ -27,9 +27,11 @@ routes.get('/pets/:id', AnimalController.show)
 routes.use(authMiddleware)
 routes.get('/users', requireAdmin, UserController.index)
 routes.get('/users/:id', UserController.show)
+routes.put('/users/change_password/:id', UserController.updatePassword)
 routes.put('/users/:id', UserController.update)
 routes.delete('/users/:id', UserController.delete)
 
+routes.get('/all-pets', requireAdmin, AnimalController.getAll)
 routes.post(
   '/pets',
   upload.single('file'),
@@ -42,6 +44,7 @@ routes.delete('/pets/:id', requireAdmin, AnimalController.delete)
 routes.post('/adoption', AdoptionController.create)
 routes.get('/adoption', requireAdmin, AdoptionController.index)
 routes.get('/adoption/:id', requireAdmin, AdoptionController.show)
+routes.put('/adoption/:id', requireAdmin, AdoptionController.update)
 routes.delete('/adoption/:id', requireAdmin, AdoptionController.delete)
 
 routes.get('/sendmail/:adoption_id', requireAdmin, SendMailController.send)

@@ -12,24 +12,28 @@ class AuthController {
   async store(request, response) {
     const { email, password } = request.body
 
-    const user = await User.findOne({ where: { email } })
+    try {
+      const user = await User.findOne({ where: { email } })
 
-    if (!user) {
-      throw new AppError(400, 'Email ou senha inválidos.')
-    }
+      if (!user) {
+        throw new AppError(400, 'Email ou senha inválidos.')
+      }
 
-    if (!(await user.chekPassword(password))) {
-      throw new AppError(401, 'Email ou senha inválidos')
-    }
+      if (!(await user.chekPassword(password))) {
+        throw new AppError(400, 'Email ou senha inválidos')
+      }
 
-    const { id, name, role } = user
+      const { id, name, role } = user
 
-    return response.json({
-      user: { id, name, email },
-      token: jwt.sign({ id, role }, authConfig.secret, {
-        expiresIn: authConfig.expiresIn
+      return response.json({
+        user: { id, name, email, role },
+        token: jwt.sign({ id, role }, authConfig.secret, {
+          expiresIn: authConfig.expiresIn
+        })
       })
-    })
+    } catch (err) {
+      throw new AppError(400, err.message)
+    }
   }
 
   async create(request, response) {
@@ -41,8 +45,6 @@ class AuthController {
           email
         }
       })
-
-      console.log(user)
 
       if (!user) {
         throw new AppError(400, 'Usuário não encontrado.')

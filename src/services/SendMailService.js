@@ -22,8 +22,8 @@ class SendMailService {
     const message = await this.transporter.sendMail({
       to,
       subject,
-      html,
-      from: process.env.MAIL_USER
+      from: process.env.MAIL_USER,
+      html
     })
 
     console.log('SENDMAIL SERVICE', JSON.stringify(message))

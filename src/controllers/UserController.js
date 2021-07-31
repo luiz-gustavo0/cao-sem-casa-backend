@@ -8,10 +8,10 @@ class UserController {
   async index(request, response) {
     const { page = 1 } = request.query
 
-    const users = await User.findAll({
+    const users = await User.findAndCountAll({
       attributes: ['id', 'name', 'email'],
-      limit: 20,
-      offset: (page - 1) * 20
+      limit: 12,
+      offset: (page - 1) * 12
     })
 
     return response.json(users)
@@ -50,7 +50,7 @@ class UserController {
     })
 
     if (userExists) {
-      throw new AppError(409, 'Usuário já cadastrado.')
+      throw new AppError(400, 'Email já cadastrado.')
     }
 
     try {
@@ -66,7 +66,7 @@ class UserController {
         .status(201)
         .json({ id, name, email, rua, bairro, numero, cidade, uf })
     } catch (err) {
-      return response.status(400).json({ errors: err.errors })
+      return response.status(400).json(err)
     }
   }
 
@@ -75,9 +75,6 @@ class UserController {
       .object()
       .shape({
         name: yup.string(),
-        password: yup
-          .string()
-          .min(8, 'A senha deve conter no mínimo 8 caracteres'),
         rua: yup.string(),
         numero: yup.number(),
         bairro: yup.string(),
@@ -105,6 +102,55 @@ class UserController {
       return response.json({ message: 'Dados atualizados com successo.' })
     } catch (err) {
       return response.status(400).json(err.errors)
+    }
+  }
+
+  async updatePassword(request, response) {
+    const { password, newPassword } = request.body
+
+    const schema = yup
+      .object()
+      .shape({
+        password: yup
+          .string()
+          .min(8, 'A senha deve conter no mínimo 8 caracteres'),
+        newPassword: yup
+          .string()
+          .min(8, 'A nova senha deve conter no mínimo 8 caracteres')
+      })
+      .noUnknown()
+
+    try {
+      const { userId } = request.userData
+
+      const user = await User.findByPk(userId)
+
+      if (!user) {
+        throw new AppError(400, 'Usuário não encontrado.')
+      }
+
+      if (!(await user.chekPassword(password))) {
+        throw new AppError(
+          400,
+          'A senha deve ser a mesma utilizada para fazer login'
+        )
+      }
+
+      const validFields = await schema.validate(
+        { password, newPassword },
+        {
+          abortEarly: false,
+          stripUnknown: true
+        }
+      )
+
+      await user.update({
+        password: validFields.newPassword
+      })
+
+      return response.json({ message: 'Dados atualizados com successo.' })
+    } catch (err) {
+      return response.status(400).json(err)
     }
   }
 

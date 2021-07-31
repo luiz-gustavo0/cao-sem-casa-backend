@@ -19,6 +19,16 @@ class AnimalController {
     return response.json(animals)
   }
 
+  async getAll(request, response) {
+    const { page = 1 } = request.query
+    const animals = await Animal.findAndCountAll({
+      limit: 12,
+      offset: (page - 1) * 12
+    })
+
+    return response.json(animals)
+  }
+
   async show(request, response) {
     const userId = request.params.id
     try {
@@ -52,12 +62,14 @@ class AnimalController {
 
       return response.status(201).json(animal)
     } catch (err) {
-      return response.status(400).json(err.errors)
+      return response.status(400).json(err)
     }
   }
 
   async update(request, response) {
     // const file = request.file
+
+    console.log('BODY: ', request.body)
     const animalId = request.params.id
 
     const schema = yup
@@ -66,11 +78,16 @@ class AnimalController {
         name: yup.string(),
         peso: yup.number().positive(),
         idade: yup.number().positive(),
+        raca: yup.string(),
+        tipo: yup.string(),
         vacinado: yup.string(),
         vermifugado: yup.string(),
-        castrado: yup.string()
+        castrado: yup.string(),
+        description: yup.string(),
+        sexo: yup.string()
       })
       .noUnknown()
+
     try {
       const animal = await Animal.findByPk(animalId)
 
@@ -83,12 +100,14 @@ class AnimalController {
         stripUnknown: true
       })
 
-      const newData = await animal.update({ ...validFields })
+      const newDataAnimal = await animal.update({
+        ...validFields
+      })
 
-      return response.status(200).json(newData)
+      return response.status(200).json(newDataAnimal)
     } catch (err) {
       console.log('ERROR', err)
-      return response.status(400).json(err.errors)
+      return response.status(400).json(err)
     }
   }
 

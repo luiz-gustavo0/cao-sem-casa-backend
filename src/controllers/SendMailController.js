@@ -43,13 +43,13 @@ class SendMailController {
       name: user.name,
       title: 'Confirmação de Adoção',
       animalName: animal.name,
-      animalFoto: animal.foto_url,
+      animaFoto: animal.foto_url,
       id: adoption.id
     }
 
     await SendMailService.execute(user.email, variables.title, variables, path)
 
-    return response.json({ message: 'Email enviado com sucesso.' })
+    return response.json({ message: 'Email enviado com sucesso' })
   }
 }
 
