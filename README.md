@@ -1,4 +1,4 @@
-<p style="text-align: center">
+<p style="text-align: center;">
 <img src='src/assets/logo-header.svg' alt='Imagem de um cachorro e um gato' width='300'  />
 </p>
 
