@@ -1,10 +1,10 @@
-<p style="text-align: center">
+<p style="text-align: center;">
 <img src='src/assets/logo-header.svg' alt='Imagem de um cachorro e um gato' width='300'  />
 </p>
 
 # Sobre o projeto
 
-Aplicação backend criada para o projeto [Cão sem casa](https://github.com/luiz-gustavo0/cao-sem-casa-frontend).
+API Rest desenvolvida para o projeto [Cão sem casa](https://github.com/luiz-gustavo0/cao-sem-casa-frontend).
 
 Projeto desenvolvido para meu TCC de Análise e Desenvolvimento de Sistemas.
 
@@ -17,7 +17,7 @@ Projeto desenvolvido para meu TCC de Análise e Desenvolvimento de Sistemas.
 - JSONWEBTOKEN
 - NODEMAILER
 
-## Como baixar o projeto
+## Como rodar a aplicação
 
 ### Clonar o repositório
 
