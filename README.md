@@ -4,7 +4,7 @@
 
 # Sobre o projeto
 
-Aplicação backend criada para o projeto [Cão sem casa](https://github.com/luiz-gustavo0/cao-sem-casa-frontend).
+API Rest para o projeto [Cão sem casa](https://github.com/luiz-gustavo0/cao-sem-casa-frontend).
 
 Projeto desenvolvido para meu TCC de Análise e Desenvolvimento de Sistemas.
 
