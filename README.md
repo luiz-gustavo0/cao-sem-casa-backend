@@ -17,7 +17,7 @@ Projeto desenvolvido para meu TCC de Análise e Desenvolvimento de Sistemas.
 - JSONWEBTOKEN
 - NODEMAILER
 
-## Como baixar o projeto
+## Como rodar a aplicação
 
 ### Clonar o repositório
 
