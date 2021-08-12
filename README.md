@@ -1,5 +1,5 @@
-<p style="text-align: center;">
-<img src='src/assets/logo-header.svg' alt='Imagem de um cachorro e um gato' width='300'  />
+<p style="text-align: center">
+<img src='src/assets/logo-header.svg' alt='Imagem de um cachorro e um gato' width='100%' height= '200' />
 </p>
 
 # Sobre o projeto
@@ -36,6 +36,11 @@ cd cao-sem-casa-backend
 ```
 yarn install
 ```
+
+## Links Úteis
+[Frontend](https://github.com/luiz-gustavo0/cao-sem-casa-frontend)
+
+[Dashboard](https://github.com/luiz-gustavo0/cao-sem-casa-dashborad)
 
 ## Author
 
