@@ -45,7 +45,3 @@ yarn install
 ## Author
 
 - LinkedIn: [@luiz-gustavo0](https://www.linkedin.com/in/luiz-gustavo0/)
-
-## License
-
-MIT
