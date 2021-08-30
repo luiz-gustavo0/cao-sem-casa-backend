@@ -71,6 +71,7 @@ class AuthController {
 
       const variables = {
         name: user.name,
+        email: user.email,
         title: 'Recuperção de senha',
         token
       }
