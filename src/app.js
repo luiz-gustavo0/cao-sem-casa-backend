@@ -18,8 +18,19 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(helmet())
-app.use(cors())
 app.use(morgan('common'))
+
+const allowedOrigins = [process.env.URL_APP_PRODUCTION, 'http://localhost:3000']
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+app.use(cors(corsOptions))
 
 app.use(routes)
 
