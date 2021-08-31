@@ -137,9 +137,7 @@ class AdoptionController {
         throw new AppError(400, 'Animal não encontrado')
       }
 
-      const animalUpdate = await animal.update({ status: 'nao adotado' })
-
-      console.log(animalUpdate)
+      await animal.update({ status: 'nao adotado' })
 
       await adoption.destroy()
 

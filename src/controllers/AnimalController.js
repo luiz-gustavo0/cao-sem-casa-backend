@@ -10,7 +10,7 @@ class AnimalController {
 
     const animals = await Animal.findAll({
       where: {
-        status: 'nao adotado'
+        status: 'nao adotado' || 'não adotado'
       },
       limit: 12,
       offset: (page - 1) * 12
@@ -67,9 +67,6 @@ class AnimalController {
   }
 
   async update(request, response) {
-    // const file = request.file
-
-    console.log('BODY: ', request.body)
     const animalId = request.params.id
 
     const schema = yup
